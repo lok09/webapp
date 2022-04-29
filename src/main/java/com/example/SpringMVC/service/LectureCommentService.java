@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class LectureCommentService {
@@ -51,4 +52,19 @@ public class LectureCommentService {
         toUpdateLectureComment.setContent(lectureComment.getContent());
         lectureCommentRepository.save(toUpdateLectureComment);
     }
+
+    @Transactional
+    public Optional<LectureComment> findLectureCommentById(long id){
+        return lectureCommentRepository.findById(id);
+    }
+
+    @Transactional(rollbackFor = CommentNotFoundException.class)
+    public void delete(long id) throws CommentNotFoundException {
+        LectureComment delComment = lectureCommentRepository.findById(id).orElse(null);
+        if (delComment == null) {
+            throw new CommentNotFoundException();
+        }
+        lectureCommentRepository.delete(delComment);
+    }
+
 }
