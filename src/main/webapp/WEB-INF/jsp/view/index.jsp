@@ -12,7 +12,11 @@
         <c:url value="/poll/edit/addPoll" var="addPollURL"/>
         <c:url value="/poll/view/" var="viewPollURL"/>
         <c:url value="/registry" var="registryURL" />
+        <c:url value="/user/" var="usersURL" />
 
+        <security:authorize access="hasAnyRole('LECTURER')">
+            <a href="${usersURL}">View All Users</a>
+        </security:authorize>
         <security:authorize access="hasAnyRole('LECTURER')">
             <a href="${addLectureURL}">Add Lecture</a>
         </security:authorize>

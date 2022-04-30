@@ -53,11 +53,14 @@
 
     <s:http auto-config="true">
 
+        
         <s:intercept-url pattern="/lecture/edit/**" access="hasAnyRole('LECTURER')"/>
         <s:intercept-url pattern="/lecture/**" access="isAuthenticated()"/>
         <s:intercept-url pattern="/poll/edit/**" access="hasAnyRole('LECTURER')"/>
         <s:intercept-url pattern="/poll/**" access="isAuthenticated()"/>
         <s:intercept-url pattern="/lecturer/**" access="hasRole('LECTURER')"/>
+        <s:intercept-url pattern="/user/edit/**" access="hasAnyRole('LECTURER')"/>
+        <s:intercept-url pattern="/user/**" access="isAuthenticated()"/>         
 
         <s:remember-me
                 key="uniqueAndSecret"

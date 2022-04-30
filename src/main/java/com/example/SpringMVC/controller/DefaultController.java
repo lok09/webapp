@@ -1,5 +1,6 @@
 package com.example.SpringMVC.controller;
 
+import com.example.SpringMVC.exception.UserIsExistedExeception;
 import com.example.SpringMVC.model.User;
 import com.example.SpringMVC.service.LectureService;
 import com.example.SpringMVC.service.PollService;
@@ -50,7 +51,7 @@ public class DefaultController {
     }
 
     @PostMapping("/registry")
-    public String registry(@ModelAttribute("user") User user){
+    public String registry(@ModelAttribute("user") User user) throws UserIsExistedExeception{
         user.setRole("ROLE_STUDENT");
         user.setPassword("{noop}"+user.getPassword().trim());
         userService.addUser(user);

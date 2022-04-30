@@ -10,5 +10,5 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
     @Query("SELECT l FROM Lecture l JOIN FETCH l.materials WHERE l.lectureID = (:id)")
     public Optional<Lecture> findByIdAndFetchMaterials(@Param("id") Long id);*/
-
+     //public long createLecture()
 }

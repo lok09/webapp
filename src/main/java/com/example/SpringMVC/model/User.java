@@ -82,11 +82,11 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public List<LectureComment> getComments() {
+    public List<LectureComment> getLectureComments() {
         return lectureComments;
     }
 
-    public void setComments(List<LectureComment> lectureComments) {
+    public void setLectureComments(List<LectureComment> lectureComments) {
         this.lectureComments = lectureComments;
     }
 
