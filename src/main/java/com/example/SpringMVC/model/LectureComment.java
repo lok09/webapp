@@ -9,9 +9,11 @@ public class LectureComment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long commentID;
-    @Column(name="content", length=250, nullable=false)
+    @Column(name = "content", length = 250, nullable = false)
     private String content;
+    @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 

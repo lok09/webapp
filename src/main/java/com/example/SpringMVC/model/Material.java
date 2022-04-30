@@ -9,6 +9,7 @@ public class Material implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="material_id")
     private Long materialID;
     @Column(name="material_name", length=50, nullable=false)
     private String materialName;
@@ -20,6 +21,7 @@ public class Material implements Serializable {
     @Column(name="contents", length=50, nullable=false)
     private byte[] contents;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="upload_date")
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)

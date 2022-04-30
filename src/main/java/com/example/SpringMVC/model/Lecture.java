@@ -12,6 +12,7 @@ import java.util.List;
 public class Lecture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="lecture_id")
     private Long lectureID;
     @Column(name="lecture_title", length=50, nullable=false)
     private String lectureTitle;

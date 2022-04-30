@@ -8,14 +8,16 @@ import java.util.Date;
 public class PollComment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_id")
     private Long commentID;
     @Column(name="content", length=250, nullable=false)
     private String content;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="create_date")
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id")
+    @JoinColumn(name = "poll_id")
     private Poll poll;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -8,10 +8,12 @@ import java.util.Date;
 public class PollResult implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="poll_result_id")
     private Long pollResultID;
     @Column(name="user_option", length=1)
     private String option;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="submit_date")
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)

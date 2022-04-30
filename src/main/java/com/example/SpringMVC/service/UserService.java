@@ -4,6 +4,7 @@ import com.example.SpringMVC.dao.UserRepository;
 import com.example.SpringMVC.exception.UserIsExistedExeception;
 import com.example.SpringMVC.exception.UserNotFindException;
 import com.example.SpringMVC.model.LectureComment;
+import com.example.SpringMVC.model.PollComment;
 import com.example.SpringMVC.model.PollResult;
 import com.example.SpringMVC.model.User;
 import java.util.List;
@@ -38,11 +39,15 @@ public class UserService {
         User user = optionalUser.get();
         Hibernate.initialize(user.getLectureComments());
         Hibernate.initialize(user.getPollResults());
+        Hibernate.initialize(user.getPollComments());
         for(PollResult p:user.getPollResults()){
             Hibernate.initialize(p.getPoll());
         }
         for(LectureComment lc:user.getLectureComments()){
             Hibernate.initialize(lc.getLecture());
+        }
+        for(PollComment pc: user.getPollComments()){
+            Hibernate.initialize(pc.getPoll());
         }
         return user;
     }

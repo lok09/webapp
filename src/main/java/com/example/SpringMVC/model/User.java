@@ -19,9 +19,9 @@ public class User implements Serializable {
     private String password;
     @Column(name="user_role", length=20, nullable=false)
     private String role;
-    @Column(name="fullName", length=50, nullable=false)
+    @Column(name="full_name", length=50, nullable=false)
     private String fullName;
-    @Column(name="phone_number", length=20, nullable=false)
+    @Column(name="phone_number", nullable=false)
     private int phoneNumber;
     @Column(name="address", length=250, nullable=false)
     private String address;
@@ -29,11 +29,23 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<LectureComment> lectureComments;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<PollComment> pollComments;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<PollResult> pollResults;
+    
+    public List<PollComment> getPollComments() {
+        return pollComments;
+    }
 
+    public void setPollComments(List<PollComment> pollComments) {
+        this.pollComments = pollComments;
+    }
+    
     public String getUsername() {
         return username;
     }

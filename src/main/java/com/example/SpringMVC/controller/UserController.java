@@ -4,8 +4,6 @@
  */
 package com.example.SpringMVC.controller;
 
-import com.example.SpringMVC.model.Lecture;
-import com.example.SpringMVC.model.User;
 import com.example.SpringMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -39,7 +36,6 @@ public class UserController {
         public String viewUserProfile(@PathVariable("username") String username, ModelMap map){
             //return new ModelAndView("editUser","user", userService.findUserByUserName(username).orElseThrow(UserNotFindException::new));
             map.addAttribute("user", userService.findUserByUserNameFetchAll(username));          
-           
         return "userProfilePage";
     }
 

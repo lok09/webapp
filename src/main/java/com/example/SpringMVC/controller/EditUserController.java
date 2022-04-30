@@ -4,7 +4,6 @@
  */
 package com.example.SpringMVC.controller;
 
-import com.example.SpringMVC.exception.LectureNotFindException;
 import com.example.SpringMVC.exception.UserIsExistedExeception;
 import com.example.SpringMVC.exception.UserNotFindException;
 import com.example.SpringMVC.model.User;

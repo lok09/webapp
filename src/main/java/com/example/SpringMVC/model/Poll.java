@@ -9,6 +9,7 @@ import java.util.List;
 public class Poll implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="poll_id")
     private Long pollID;
     @Column(name="question", length = 200)
     private String question;
@@ -23,6 +24,7 @@ public class Poll implements Serializable {
     @Column(name="answer", length=1)
     private String answer;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="create_date")
     private Date date;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "poll", cascade = CascadeType.ALL, orphanRemoval = true)

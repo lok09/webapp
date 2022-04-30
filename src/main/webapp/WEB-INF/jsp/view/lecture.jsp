@@ -4,6 +4,8 @@
         <title>Lecture detail</title>
     </head>
     <body>
+        <c:url value="/logout" var="logoutURL" />
+        <a href="${logoutURL}">Logout</a> <br>
         <c:url value="/" var="mainURL" />
         <a href="${mainURL}">MAIN PAGE</a> <br>
         <c:url value="/lecture/addComment/" var="addCommentURL" />
@@ -39,6 +41,9 @@
                                 </c:forEach>
                     </ul><br>
                 </c:if>
+                <security:authorize access="hasAnyRole('LECTURER')">
+                    <a href="${uploadURL}${lecture.lectureID}">Add Material</a><br>
+                </security:authorize>
                 <c:if test="${not empty lecture.comments}">
                     <h3>List of Comments</h3>
                     <ul>
@@ -58,9 +63,6 @@
                     </ul>
                 </c:if>
                 <a href="${addCommentURL}${lecture.lectureID}">Add Comment</a>
-                <security:authorize access="hasAnyRole('LECTURER')">
-                    &nbsp;<a href="${uploadURL}${lecture.lectureID}">Add Material</a>
-                </security:authorize>
             </c:otherwise>
         </c:choose>
     </body>

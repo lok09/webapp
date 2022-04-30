@@ -6,7 +6,6 @@ import com.example.SpringMVC.service.LectureService;
 import com.example.SpringMVC.service.PollService;
 import com.example.SpringMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
