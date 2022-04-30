@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Optional;
+import org.springframework.data.repository.query.Param;
 
 @Service
 public class PollResultService {
@@ -37,14 +38,13 @@ public class PollResultService {
     }
 
     @Transactional
-    public Optional<PollResult> findPollResultByUserIdAndPollId(Long pollId, Principal principal){
+    public Optional<PollResult> findPollResultByUserIdAndPollId(Long pollId, Principal principal) {
         return pollResultRepository.existByUser(principal.getName(), pollId);
     }
 
     @Transactional(rollbackFor = Throwable.class)
     public void updatePollResult(Long pollId, String option, Principal principal)
-            throws PollNotFoundException, UserNotFindException{
-
+            throws PollNotFoundException, UserNotFindException {
 
         Optional<PollResult> oldPollResult = pollResultRepository.existByUser(principal.getName(), pollId);
         PollResult newPollResult = oldPollResult.orElse(new PollResult());
@@ -55,4 +55,10 @@ public class PollResultService {
         pollResultRepository.save(newPollResult);
     }
 
+    @Transactional
+    public Integer countOptions(String userOption, Long pollId) {
+
+       return pollResultRepository.countOptions(userOption, pollId);
+
+    }
 }

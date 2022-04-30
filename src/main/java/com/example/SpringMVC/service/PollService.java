@@ -24,32 +24,45 @@ public class PollService {
     }
 
     @Transactional(rollbackFor = Throwable.class)
-    public void addPoll(Poll poll){
+    public void addPoll(Poll poll) {
         poll.setDate(new Date());
         pollRepository.save(poll);
     }
 
     @Transactional
-    public Optional<Poll> findPollById(Long id){
+    public Optional<Poll> findPollById(Long id) {
         return pollRepository.findById(id);
     }
 
     @Transactional
     public Poll findPollByIdFetchAll(Long id) {
         Optional<Poll> optionalPoll = pollRepository.findById(id);
-        if(!optionalPoll.isPresent()){
+        if (!optionalPoll.isPresent()) {
             return null;
         }
         Poll poll = optionalPoll.get();
         Hibernate.initialize(poll.getPollComments());
-        for(PollComment pollComment : poll.getPollComments()){
+        for (PollComment pollComment : poll.getPollComments()) {
             Hibernate.initialize(pollComment.getUser());
         }
         return poll;
     }
 
     @Transactional
-    public List<Poll> findAllPolls(){
+    public List<Poll> findAllPolls() {
         return pollRepository.findAll();
+    }
+
+    @Transactional(rollbackFor = Throwable.class)
+    public void updatePollById(Long id, Poll poll) throws PollNotFoundException {
+        Poll toUpdatePoll = pollRepository.findById(id).orElseThrow(PollNotFoundException::new);
+        toUpdatePoll.setQuestion(poll.getQuestion());
+        toUpdatePoll.setOptionA(poll.getOptionA());
+        toUpdatePoll.setOptionB(poll.getOptionB());
+        toUpdatePoll.setOptionC(poll.getOptionC());
+        toUpdatePoll.setOptionD(poll.getOptionD());
+        toUpdatePoll.setAnswer(poll.getAnswer());
+
+        pollRepository.save(toUpdatePoll);
     }
 }

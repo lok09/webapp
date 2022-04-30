@@ -41,35 +41,39 @@ public class PollController {
     }
 
     @GetMapping("/view/{id}")
-    public String pollView(@PathVariable Long id, ModelMap map, Principal principal){
+    public String pollView(@PathVariable Long id, ModelMap map, Principal principal) {
         map.addAttribute("poll", pollService.findPollByIdFetchAll(id));
         map.addAttribute("pollResult",
                 pollResultService.findPollResultByUserIdAndPollId(id, principal).orElse(null));
+        map.addAttribute("optionA", pollResultService.countOptions("A", id));
+        map.addAttribute("optionB", pollResultService.countOptions("B", id));
+        map.addAttribute("optionC", pollResultService.countOptions("C", id));
+        map.addAttribute("optionD", pollResultService.countOptions("D", id));
         return "poll";
     }
 
     @GetMapping("/submit/{pollId}/{option}")
     public String pollSubmit(@PathVariable("pollId") Long pollId,
-                             @PathVariable("option") String option, Principal principal)
-            throws PollNotFoundException, UserNotFindException{
+            @PathVariable("option") String option, Principal principal)
+            throws PollNotFoundException, UserNotFindException {
         //prevent invalid data
-        if(Pattern.matches("[A-D]", option)){
+        if (Pattern.matches("[A-D]", option)) {
             pollResultService.updatePollResult(pollId, option, principal);
             return "redirect:/";
         }
-        return "redirect:/poll/view/"+pollId;
+        return "redirect:/poll/view/" + pollId;
     }
 
     @GetMapping("/addComment/{id}")
-    public ModelAndView addCommentForm(@PathVariable String id){
+    public ModelAndView addCommentForm(@PathVariable String id) {
         return new ModelAndView("addPollComment", "pollComment", new PollComment());
     }
 
     @PostMapping("/addComment/{id}")
-    public String addComment(@PathVariable Long id, @ModelAttribute("pollComment") PollComment pollComment
-            , Principal principal)
+    public String addComment(@PathVariable Long id, @ModelAttribute("pollComment") PollComment pollComment,
+            Principal principal)
             throws UserNotFindException, PollNotFoundException {
         pollCommentService.saveComment(id, pollComment, principal);
-        return "redirect:/poll/view/"+id;
+        return "redirect:/poll/view/" + id;
     }
 }

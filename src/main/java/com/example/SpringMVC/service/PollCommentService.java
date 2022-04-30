@@ -8,6 +8,7 @@ import com.example.SpringMVC.exception.LectureNotFindException;
 import com.example.SpringMVC.exception.PollNotFoundException;
 import com.example.SpringMVC.exception.UserNotFindException;
 import com.example.SpringMVC.model.LectureComment;
+import com.example.SpringMVC.model.Poll;
 import com.example.SpringMVC.model.PollComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 public class PollCommentService {
+
     private PollCommentRepository pollCommentRepository;
     private PollRepository pollRepository;
     private UserRepository userRepository;
@@ -54,4 +56,8 @@ public class PollCommentService {
         pollCommentRepository.save(toUpdatePollComment);
     }
 
+    @Transactional
+    public Optional<PollComment> findPollCommentById(Long id) {
+        return pollCommentRepository.findById(id);
+    }
 }
