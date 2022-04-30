@@ -1,5 +1,6 @@
 package com.example.SpringMVC.controller;
 
+import com.example.SpringMVC.exception.UserIsExistedExeception;
 import com.example.SpringMVC.model.User;
 import com.example.SpringMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class LecturerController {
     }
 
     @PostMapping("/createAccount")
-    public String createAccount(@ModelAttribute("user") User user){
+    public String createAccount(@ModelAttribute("user") User user) throws UserIsExistedExeception{
         user.setPassword("{noop}"+user.getPassword().trim());
         userService.addUser(user);
         return "redirect:/";
