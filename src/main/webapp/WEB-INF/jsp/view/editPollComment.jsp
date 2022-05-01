@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Add Comment</title>
+    <title>Edit Poll Comment</title>
 </head>
 <body>
 <h1>Add Lecture</h1>

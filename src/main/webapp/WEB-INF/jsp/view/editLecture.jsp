@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Edit Lecture Title</title>
+        <title>Edit Lecture</title>
     </head>
     <body>
         <c:url value="/" var="mainURL" />

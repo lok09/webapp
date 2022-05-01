@@ -13,16 +13,16 @@
         <c:url value="/lecture/edit/uploadMaterial/" var="uploadURL"/>
         <c:url value="/lecture/edit/deleteMaterial/" var="deleteMaterialURL"/>
         <c:url value="/lecture/edit/editLecture/" var="editLectureURL"/>
+        <c:url value="/user/view/" var="viewUserURL"/>
         <c:choose>
             <c:when test="${empty lecture}">
                 <p>There is no such lectures at this course</p>
             </c:when>
             <c:otherwise>
-                <p>Lecture Title: ${lecture.lectureTitle}</p>
-                <security:authorize access="hasAnyRole('LECTURER')">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${editLectureURL}${lecture.lectureID}">Edit Title</a>
-                </security:authorize>
-                <br>
+                <p>Lecture Title: ${lecture.lectureTitle}
+                    <security:authorize access="hasAnyRole('LECTURER')">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${editLectureURL}${lecture.lectureID}">Edit Lecture</a><br>
+                    </security:authorize></p>
 
                 <c:if test="${empty lecture.materials}">
                     <p>There are no material for this lecture</p><br>
@@ -41,9 +41,7 @@
                                 </c:forEach>
                     </ul><br>
                 </c:if>
-                <security:authorize access="hasAnyRole('LECTURER')">
-                    <a href="${uploadURL}${lecture.lectureID}">Add Material</a><br>
-                </security:authorize>
+
                 <c:if test="${not empty lecture.comments}">
                     <h3>List of Comments</h3>
                     <ul>
@@ -58,10 +56,13 @@
                                         [<a href="<c:url value="/lecture/${lecture.lectureID}/deleteComment/${comments.commentID}" />">Delete</a>]
                                     </security:authorize>
                                 </p>
-                                <p>lectureComment written by ${comments.user.fullName} at <fmt:formatDate value="${comments.date}" pattern="dd-MM-yyyy HH:mm"/> </p></li>
+                                <p>lectureComment written by <a href="${viewUserURL}${comments.user.username}">${comments.user.fullName}</a> at <fmt:formatDate value="${comments.date}" pattern="dd-MM-yyyy HH:mm"/> </p></li>
                             </c:forEach>
                     </ul>
                 </c:if>
+                <security:authorize access="hasAnyRole('LECTURER')">
+                    <a href="${uploadURL}${lecture.lectureID}">Add Material</a><br>
+                </security:authorize>
                 <a href="${addCommentURL}${lecture.lectureID}">Add Comment</a>
             </c:otherwise>
         </c:choose>

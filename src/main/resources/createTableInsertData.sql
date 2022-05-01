@@ -20,7 +20,7 @@ CREATE TABLE material(
     (START WITH 1, INCREMENT BY 1),
     material_name VARCHAR(50) NOT NULL,
     owner_username VARCHAR(50) NOT NULL,
-    mimeContentType VARCHAR(50) NOT NULL,
+    mime_content_type VARCHAR(255) NOT NULL,
     contents BLOB NOT NULL,
     upload_date TIMESTAMP,
     lecture_id INTEGER NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE pollresult(
 
 
 INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user_role)
-VALUES ('studentTest', 'HK', 'Victor Wong', '{noop}studentTestpw', 62542156, 'ROLE_STUDENT');
+VALUES ('studentTest', '3 sunsain street, Hon Man Tin', 'Victor Wong', '{noop}studentTestpw', 62542156, 'ROLE_STUDENT');
 
 INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user_role)
-VALUES ('lectureTest', 'HK', 'Keith Lee', '{noop}lectureTestpw', 58002150, 'ROLE_LECTURER');
+VALUES ('lectureTest', 'HKMU', 'Keith Lee', '{noop}lectureTestpw', 58002150, 'ROLE_LECTURER');

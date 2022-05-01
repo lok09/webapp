@@ -15,7 +15,7 @@ public class Material implements Serializable {
     private String materialName;
     @Column(name="owner_username", length=50, nullable=false)
     private String owner_username;
-    @Column(name="mime_content_type", length=50, nullable=false)
+    @Column(name="mime_content_type", length=255, nullable=false)
     private String mimeContentType;
     @Lob
     @Column(name="contents", length=50, nullable=false)

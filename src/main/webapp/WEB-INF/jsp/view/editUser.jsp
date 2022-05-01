@@ -6,7 +6,7 @@
 <h1>Edit User</h1>
 <form:form method="POST" modelAttribute="user">
     <form:label path="username">Username: </form:label>
-    <form:input type="text" path="username" value="${user.username}"/><br>
+    <form:label path="username">${user.username}</form:label><br>
     <form:label path="password">password: </form:label>
     <form:input type="password" path="password" value=""/><br>
     <form:label path="role">role: </form:label>

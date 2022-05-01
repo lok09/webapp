@@ -72,7 +72,6 @@ public class UserService {
     @Transactional(rollbackFor = Throwable.class)
     public void editUser(String username,User user)throws UserNotFindException {        
         User toUpdateUser = userRepository.findById(username).orElseThrow(UserNotFindException::new);
-        //if(toUpdateUser.getUsername().equals(username))throw new UserIsExistedExeception();
         toUpdateUser.setPassword(user.getPassword());
         toUpdateUser.setAddress(user.getAddress());
         toUpdateUser.setFullName(user.getFullName());
