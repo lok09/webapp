@@ -3,7 +3,7 @@
         <title>Edit Poll</title>
     </head>
     <body>
-        <h1>Add Poll</h1>
+        <h1>Edit Poll</h1>
         <form:form method="POST" modelAttribute="poll">
             <form:label path="question">Poll Question: </form:label>
             <form:input type="text" value="${poll.question}" path="question"/><br>

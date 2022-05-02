@@ -1,9 +1,8 @@
 package com.example.SpringMVC.controller;
 
-import com.example.SpringMVC.exception.LectureNotFindException;
+import com.example.SpringMVC.exception.CommentNotFoundException;
 import com.example.SpringMVC.exception.PollNotFoundException;
 import com.example.SpringMVC.exception.UserNotFindException;
-import com.example.SpringMVC.model.LectureComment;
 import com.example.SpringMVC.model.PollComment;
 import com.example.SpringMVC.service.PollCommentService;
 import com.example.SpringMVC.service.PollResultService;
@@ -15,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/poll")
@@ -75,5 +77,43 @@ public class PollController {
             throws UserNotFindException, PollNotFoundException {
         pollCommentService.saveComment(id, pollComment, principal);
         return "redirect:/poll/view/" + id;
+    }
+
+    @GetMapping("{PollID}/editComment/{cid}")
+    public ModelAndView editCommentForm(@PathVariable("cid") Long cid,
+            Principal principal, HttpServletRequest request, @PathVariable("PollID") long lid) throws CommentNotFoundException {
+        Optional<PollComment> pollComment = pollCommentService.findPollCommentById(cid);
+        String CommentUsername = pollComment.get().getUser().getUsername();
+        if (!pollComment.isPresent()
+                || (!request.isUserInRole("LECTURER")
+                && !principal.getName().equals(CommentUsername))) {
+            return new ModelAndView(new RedirectView("/poll/view/" + lid, true));
+        }
+        return new ModelAndView("editPollComment", "pollComment",
+                pollComment.orElseThrow(CommentNotFoundException::new));
+    }
+
+    @PostMapping("{PollID}/editComment/{cid}")
+    public String editCommentForm(@ModelAttribute("pollComment") PollComment comment,
+            @PathVariable("cid") long cid, @PathVariable("PollID") long lid,
+            Principal principal, HttpServletRequest request)
+            throws CommentNotFoundException {
+        Optional<PollComment> toUpdatePollComment = pollCommentService.findPollCommentById(cid);
+        String CommentUsername = toUpdatePollComment.get().getUser().getUsername();
+        if (request.isUserInRole("LECTURER")
+                || principal.getName().equals(CommentUsername)) {
+            pollCommentService.updateCommentById(cid, comment);
+        }
+        return "redirect:/poll/view/" + lid;
+    }
+
+    @GetMapping("{PollID}/deleteComment/{cid}")
+    public String deleteComment(@PathVariable("cid") long cid,
+            @PathVariable("PollID") long lid, HttpServletRequest request)
+            throws CommentNotFoundException {
+        if (request.isUserInRole("LECTURER")) {
+            pollCommentService.delete(cid);
+        }
+        return "redirect:/poll/view/" + lid;
     }
 }

@@ -58,7 +58,7 @@ public class LectureCommentService {
         return lectureCommentRepository.findById(id);
     }
 
-    @Transactional(rollbackFor = CommentNotFoundException.class)
+    @Transactional(rollbackFor = Throwable.class)
     public void delete(long id) throws CommentNotFoundException {
         LectureComment delComment = lectureCommentRepository.findById(id).orElse(null);
         if (delComment == null) {

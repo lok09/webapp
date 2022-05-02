@@ -3,7 +3,7 @@
     <title>Edit Poll Comment</title>
 </head>
 <body>
-<h1>Add Lecture</h1>
+<h1>Edit Poll Comment</h1>
 <form:form method="POST" modelAttribute="pollComment">
     <form:label path="content">Comment Content: </form:label>
     <form:textarea path="content" value="${pollComment.content}"/><br>

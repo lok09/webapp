@@ -60,4 +60,13 @@ public class PollCommentService {
     public Optional<PollComment> findPollCommentById(Long id) {
         return pollCommentRepository.findById(id);
     }
+    
+    @Transactional(rollbackFor = Throwable.class)
+    public void delete(long id) throws CommentNotFoundException {
+        PollComment delComment = pollCommentRepository.findById(id).orElse(null);
+        if (delComment == null) {
+            throw new CommentNotFoundException();
+        }
+        pollCommentRepository.delete(delComment);
+    }
 }

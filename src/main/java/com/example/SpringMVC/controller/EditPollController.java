@@ -55,17 +55,5 @@ public class EditPollController {
         pollService.updatePollById(id, poll);
         return "redirect:/";
     }
-
-    @GetMapping("/editPollComment/{id}")
-    public ModelAndView editPollCommentForm(@PathVariable("id") Long id) throws CommentNotFoundException {
-        return new ModelAndView("editPollComment", "pollComment",
-                pollCommentService.findPollCommentById(id).orElseThrow(CommentNotFoundException::new));
-    }
-
-    @PostMapping("/editPollComment/{id}")
-    public String editPollCommentForm(@ModelAttribute("pollComment") PollComment pollComment, @PathVariable Long id)
-            throws CommentNotFoundException {
-        pollCommentService.updateCommentById(id, pollComment);
-        return "redirect:/";
-    }
+    
 }

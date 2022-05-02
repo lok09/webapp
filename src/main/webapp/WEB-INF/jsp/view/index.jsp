@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Hello Spring MVC</title>
+        <title>Online Course System</title>
         <style>
             a {
                 display:inline-block;
@@ -35,9 +35,6 @@
         </security:authorize>
         <security:authorize access="isAnonymous()">
             <a href="${loginURL}">Login</a><a href="${registryURL}">Registry</a>
-        </security:authorize>
-        <security:authorize access="hasRole('LECTURER')">
-            <br><br><a href="${createAccountURL}">CreateAccount</a>
         </security:authorize>
         <h2>Lectures</h2>
         <c:choose>

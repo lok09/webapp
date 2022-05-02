@@ -83,4 +83,11 @@ INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user
 VALUES ('studentTest', '3 sunsain street, Hon Man Tin', 'Victor Wong', '{noop}studentTestpw', 62542156, 'ROLE_STUDENT');
 
 INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user_role)
+VALUES ('LeeSzeChit', '3 sunsain street, Hon Man Tin', 'Sergio Lee', '{noop}LeeSzeChitpw', 66008802, 'ROLE_STUDENT');
+
+INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user_role)
 VALUES ('lectureTest', 'HKMU', 'Keith Lee', '{noop}lectureTestpw', 58002150, 'ROLE_LECTURER');
+
+INSERT INTO USER_INFO(username, address, full_name, password, phone_number, user_role)
+VALUES ('Jeff', 'HKMU', 'Jeff Au', '{noop}Jeffpw', 52143168, 'ROLE_LECTURER');
+

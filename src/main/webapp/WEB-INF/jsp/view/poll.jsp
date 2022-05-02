@@ -6,7 +6,6 @@
         <c:url value="/poll/submit/${poll.pollID}/" var="submitURL"/>
         <c:url value="/poll/addComment/" var="addCommentURL"/>
         <c:url value="/poll/edit/editPoll/" var="editPollURL"/>
-        <c:url value="/poll/edit/editPollComment/" var="editPollCommentURL"/>
         <c:url value="/user/view/" var="viewUserURL"/>
 
         <c:url value="/logout" var="logoutURL" />
@@ -50,9 +49,16 @@
                     <c:otherwise>
                         <ul>
                             <c:forEach var="comment" items="${poll.pollComments}">
-                                <li><p>${comment.content}</p>
+                                <li><p>${comment.content}
+                                        <security:authorize access="hasAnyRole('LECTURER') or principal.username=='${comment.user.username}'">
+                                            [<a href="<c:url value="/poll/${poll.pollID}/editComment/${comment.commentID}" />">Edit</a>]
+                                        </security:authorize>
+                                        <security:authorize access="hasAnyRole('LECTURER')">
 
-                                    <p>Comment written by <a href="${viewUserURL}${comment.user.username}">${comment.user.fullName}</a> at <fmt:formatDate value="${comment.date}" pattern="dd-MM-yyyy HH:mm"/><security:authorize access="hasAnyRole('LECTURER')"><a href="${editPollCommentURL}${comment.commentID}">Edit Comment</a></security:authorize> </p></li>
+                                            [<a href="<c:url value="/poll/${poll.pollID}/deleteComment/${comment.commentID}" />">Delete</a>]
+                                        </security:authorize></p>
+
+                                    <p>Comment written by <a href="${viewUserURL}${comment.user.username}">${comment.user.fullName}</a> at <fmt:formatDate value="${comment.date}" pattern="dd-MM-yyyy HH:mm"/> </p></li>
 
                             </c:forEach>
                         </ul>

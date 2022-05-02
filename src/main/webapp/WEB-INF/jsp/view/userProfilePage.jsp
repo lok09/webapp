@@ -51,7 +51,7 @@
                     </ul>
                 </c:if>
 
-                <h3>List of lectureComments</h3>   
+                <h3>List of lecture comments</h3>   
                 <c:if test="${empty user.lectureComments}">
                     <p>No lecture comments</p>
                 </c:if>
@@ -66,7 +66,7 @@
                     </ul>
                 </c:if>
 
-                <h3>List of lectureComments</h3>   
+                <h3>List of poll comments</h3>   
                 <c:if test="${empty user.pollComments}">
                     <p>No poll comments</p>
                 </c:if>

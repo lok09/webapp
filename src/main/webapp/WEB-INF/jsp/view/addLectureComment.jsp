@@ -5,7 +5,7 @@
     <body>
         <c:url value="/" var="mainURL" />
         <a href="${mainURL}">MAIN PAGE</a> <br>
-        <h1>Add Lecture</h1>
+        <h1>Add Lecture Comment</h1>
 
         <form:form method="POST" modelAttribute="lectureComment">
             <form:label path="content">Comment Content: </form:label><br>
